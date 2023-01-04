@@ -1,7 +1,11 @@
 #!/bin/bash
 
 #https://github.com/luk00casati/smalldebinstaller.git
-su
+cd ..
+
+slblk
+
+echo "scegliere il disco su cui installare il sistema"
 
 read disco
 
@@ -28,4 +32,4 @@ apt install grub-efi-amd64
 grub-install /dev/"$disco"
 update-grub
 systemctl enable NetworkManager
-echo 'done may you want make a change before restart es. add user add software change configurations"
+echo 'done may you want make a change before restart es. add user change root password add software change configurations"
