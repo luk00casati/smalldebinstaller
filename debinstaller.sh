@@ -24,7 +24,7 @@ chroot /mnt /bin/bash <<END
 apt update
 apt -y install locales
 dpkg-reconfigure locales
-apt install linux-image-amd64 firmware-linux sudo ntp network-manager vim
+apt -y install linux-image-amd64 firmware-linux sudo ntp network-manager vim
 cp /smalldebinstaller/fstab /etc/fstab
 cp /smalldebinstaller/hostname /etc/hostname
 cp /smalldebinstaller/hosts /etc/hosts
