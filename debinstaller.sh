@@ -19,7 +19,7 @@ debootstrap testing /mnt
 cp smalldebinstaller/sources.list /mnt/etc/apt
 for dir in sys dev proc; do mount --rbind /$dir /mnt/$dir && mount --make-rslave /mnt/$dir ; done
 cp /etc/resolv.conf /mnt/etc/
-chroot /mnt /bin/bash
+chroot /mnt /bin/bash <<END
 apt update
 apt install locales
 dpkg-reconfigure locales
@@ -33,3 +33,4 @@ grub-install /dev/"$disco"
 update-grub
 systemctl enable NetworkManager
 echo "done may you want make a change before restart es. add user change root password add software change configurations"
+END
