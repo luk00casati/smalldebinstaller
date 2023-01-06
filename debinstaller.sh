@@ -31,6 +31,6 @@ dpkg-reconfigure tzdata
 apt -y install grub-efi-amd64
 grub-install /dev/"$disco"
 update-grub
-systemctl enable NetworkManager
+systemctl enable networking 
 echo "done may you want make a change before restart es. add user change root password add software change configurations"
 END
