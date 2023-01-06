@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #https://github.com/luk00casati/smalldebinstaller.git
-cd
 
 lsblk
 
@@ -16,8 +15,8 @@ mkdir -p /mnt/boot/efi #efi
 mount /dev/"$disco"1 /mnt/boot/efi
 apt install debootstrap
 debootstrap testing /mnt
-cp smalldebinstaller/sources.list /mnt/etc/apt
-cp smalldebinstaller /mnt
+cp $PWD/sources.list /mnt/etc/apt
+cp $PWD /mnt
 for dir in sys dev proc; do mount --rbind /$dir /mnt/$dir && mount --make-rslave /mnt/$dir ; done
 cp /etc/resolv.conf /mnt/etc/
 chroot /mnt /bin/bash <<END
@@ -25,9 +24,10 @@ apt update
 apt -y install locales
 dpkg-reconfigure locales
 apt -y install linux-image-amd64 firmware-linux sudo ntp network-manager vim
-cp /smalldebinstaller/fstab /etc/fstab
-cp /smalldebinstaller/hostname /etc/hostname
-cp /smalldebinstaller/hosts /etc/hosts
+cp smalldebinstaller/fstab /etc/fstab
+cp smalldebinstaller/hostname /etc/hostname
+cp smalldebinstaller/hosts /etc/hosts
+rm -r smalldebianinstaller/
 dpkg-reconfigure tzdata
 apt -y install grub-efi-amd64
 grub-install /dev/"$disco"
