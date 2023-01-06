@@ -21,14 +21,14 @@ for dir in sys dev proc; do mount --rbind /$dir /mnt/$dir && mount --make-rslave
 cp /etc/resolv.conf /mnt/etc/
 chroot /mnt /bin/bash <<END
 apt update
-apt install locales
+apt -y install locales
 dpkg-reconfigure locales
-apt install linux-image-amd64 linux-firmware sudo ntp network-manager vim
+apt -y install linux-image-amd64 linux-firmware sudo ntp network-manager vim
 cp smalldebinstaller/fstab /etc/fstab
 cp smalldebinstaller/hostname /etc/hostname
 cp smalldebinstaller/hosts /etc/hosts
 dpkg-reconfigure tzdata
-apt install grub-efi-amd64
+apt -y install grub-efi-amd64
 grub-install /dev/"$disco"
 update-grub
 systemctl enable NetworkManager
