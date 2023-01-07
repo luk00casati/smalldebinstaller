@@ -14,10 +14,7 @@ then
   # Set the bootable flag for the new partition
   parted /dev/"$disco" set 1 boot on
   # Create a new partition that extends to the end of the disk
-  parted -a optimal /dev/"$disco" mkpart primary ext4 100%
-  # Format the new partitions
-  mkfs.vfat /dev/"$disco"1
-  mkfs.ext4 /dev/"$disco"2
+  parted -a optimal /dev/"$disco" mkpart primary ext4 250MB 100%
 elif [ "$domanda" = "y" ]
 then
   # Open cfdisk to allow the user to create their own partitions
