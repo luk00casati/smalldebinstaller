@@ -9,35 +9,43 @@ echo "scegliere il disco su cui installare il sistema"
 read disco
 
 echo start
-# Set the disk to partition
-disk="/dev/<disk>"
 
+echo "vuoi creare da solo partizzioni:[y/n]"
+read domanda
+if [ "$domanda" = "n" ]
+then
 # Open fdisk and specify the disk to partition
-fdisk /dev/"$disco" << EOF
+  fdisk /dev/"$disco" << EOF
 
-# Create a new primary partition that is 250M in size
-n
-p
-1
+  # Create a new primary partition that is 250M in size
+  n
+  p
+  1
 
-+250M
+  +250M
 
-# Set the bootable flag for the first partition
-t
-1
-b
+  # Set the bootable flag for the first partition
+  t
+  1
+  b
 
-# Create a new primary partition that extends to the end of the disk
-n
-p
-2
+  # Create a new primary partition that extends to the end of the disk
+  n
+  p
+  2
 
 
-w
-EOF
+  w
+  EOF
 
-mkfs.vfat /dev/"$disco"1
-mkfs.ext4 /dev/"$disco"2
+  mkfs.vfat /dev/"$disco"1
+  mkfs.ext4 /dev/"$disco"2
+if [ "$domanda" = "y" ]
+then
+  cfdisk
+else
+  echo errore
+fi
 mount /dev/"$disco"2 /mnt #disco sistema
 mkdir -p /mnt/boot/efi #efi
 mount /dev/"$disco"1 /mnt/boot/efi
