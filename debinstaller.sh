@@ -46,8 +46,8 @@ apt -y install grub-efi-amd64
 grub-install /dev/"$disco"
 update-grub
 systemctl enable networking
-passwd
-echo "done may you want make a change before restart es. add user, add software change configurations"
 END
 chroot /mnt /bin/bash
-
+echo "choose a root password"
+passwd
+echo "done may you want make a change before restart es. add user, add software change configurations"
