@@ -75,3 +75,4 @@ passwd
 echo "done may you want make a change before restart es. add user, add software change configurations"
 END
 chroot /mnt /bin/bash
+fi
