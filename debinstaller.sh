@@ -9,11 +9,7 @@ echo "Do you want to create your own partitions? [y/n]"
 read domanda
 if [ "$domanda" = "n" ]
 then
-  # Create and format the first partition as vfat
-  parted -a optimal /dev/"$disco" mkpart primary 0% 250MB
-
-  # Create and format the second partition as ext4
-  parted -a optimal /dev/"$disco" mkpart primary 250MB 100%
+  parted /dev/"$disco" <<< $'mklabel msdos\nmkpart primary 1MiB 250MiB\nmkpart primary 251MiB 100%\nprint\nquit'
   mkfs.vfat /dev/"$disco"1
   mkfs.ext4 /dev/"$disco"2
 elif [ "$domanda" = "y" ]
