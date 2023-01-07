@@ -9,12 +9,15 @@ echo "Do you want to create your own partitions? [y/n]"
 read domanda
 if [ "$domanda" = "n" ]
 then
-  # Create a new 250MB partition at the beginning of the disk
-  parted -a optimal /dev/"$disco" mkpart primary fat32 1 250MB
-  # Set the bootable flag for the new partition
-  parted /dev/"$disco" set 1 boot on
-  # Create a new partition that extends to the end of the disk
-  parted -a optimal /dev/"$disco" mkpart primary ext4 250MB 100%
+  # Create and format the first partition as vfat
+  parted dev/"$disco" mkpart primary vfat 0 250M
+  parted dev/"$disco" set 1 fat32
+  mkfs.vfat dev/"$disk"1
+
+  # Create and format the second partition as ext4
+  parted dev/"$disco" mkpart primary ext4 250M -1
+  parted dev/"$disco" set 2 ext4
+  mkfs.ext4 dev/"$disco"2
 elif [ "$domanda" = "y" ]
 then
   # Open cfdisk to allow the user to create their own partitions
