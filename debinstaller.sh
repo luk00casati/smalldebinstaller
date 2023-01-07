@@ -15,7 +15,7 @@ read domanda
 if [ "$domanda" = "n" ]
 then
 # Open fdisk and specify the disk to partition
-  fdisk /dev/"$disco" << EOF
+  fdisk /dev/"$disco" <<EOF
 
   # Create a new primary partition that is 250M in size
   n
@@ -75,4 +75,4 @@ passwd
 echo "done may you want make a change before restart es. add user, add software change configurations"
 END
 chroot /mnt /bin/bash
-fi
+
