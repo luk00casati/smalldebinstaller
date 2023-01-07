@@ -16,7 +16,7 @@ mkdir -p /mnt/boot/efi #efi
 mount /dev/"$disco"1 /mnt/boot/efi
 apt install debootstrap
 debootstrap testing /mnt
-cp $PWD/sources.list /mnt/etc/apt
+cp $PWD/smalldebinstaller/sources.list /mnt/etc/apt
 cp $PWD /mnt
 for dir in sys dev proc; do mount --rbind /$dir /mnt/$dir && mount --make-rslave /mnt/$dir ; done
 cp /etc/resolv.conf /mnt/etc/
@@ -24,7 +24,7 @@ chroot /mnt /bin/bash <<END
 apt update
 apt -y install locales
 dpkg-reconfigure locales
-apt -y install linux-image-amd64 firmware-linux sudo ntp network-manager vim
+apt -y install linux-image-amd64 sudo ntp network-manager vim
 apt -y install git
 git clone https://github.com/luk00casati/smalldebinstaller.git
 cp smalldebinstaller/fstab /etc/fstab
