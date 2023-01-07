@@ -10,14 +10,14 @@ read domanda
 if [ "$domanda" = "n" ]
 then
   # Create and format the first partition as vfat
-  parted dev/"$disco" mkpart primary vfat 0 250M
-  parted dev/"$disco" set 1 fat32
-  mkfs.vfat dev/"$disk"1
+  parted /dev/"$disco" mkpart primary vfat 0 250M
+  parted /dev/"$disco" set 1 fat32
+  mkfs.vfat /dev/"$disk"1
 
   # Create and format the second partition as ext4
-  parted dev/"$disco" mkpart primary ext4 250M -1
-  parted dev/"$disco" set 2 ext4
-  mkfs.ext4 dev/"$disco"2
+  parted /dev/"$disco" mkpart primary ext4 250M -1
+  parted /dev/"$disco" set 2 ext4
+  mkfs.ext4 /dev/"$disco"2
 elif [ "$domanda" = "y" ]
 then
   # Open cfdisk to allow the user to create their own partitions
