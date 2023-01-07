@@ -1,50 +1,29 @@
 #!/bin/bash
 
-#https://github.com/luk00casati/smalldebinstaller.git
-
 lsblk
 
-echo "scegliere il disco su cui installare il sistema"
-
+echo "Choose the disk to install the system on:"
 read disco
 
-echo start
-
-echo "vuoi creare da solo partizzioni:[y/n]"
+echo "Do you want to create your own partitions? [y/n]"
 read domanda
 if [ "$domanda" = "n" ]
 then
-# Open fdisk and specify the disk to partition
-  fdisk /dev/"$disco" <<EOF
-
-  # Create a new primary partition that is 250M in size
-  n
-  p
-  1
-
-  +250M
-
-  # Set the bootable flag for the first partition
-  t
-  1
-  b
-
-  # Create a new primary partition that extends to the end of the disk
-  n
-  p
-  2
-
-
-  w
-  EOF
-
+  # Create a new 250MB partition at the beginning of the disk
+  parted -a optimal /dev/"$disco" mkpart primary fat32 1 250MB
+  # Set the bootable flag for the new partition
+  parted /dev/"$disco" set 1 boot on
+  # Create a new partition that extends to the end of the disk
+  parted -a optimal /dev/"$disco" mkpart primary ext4 250MB 100%
+  # Format the new partitions
   mkfs.vfat /dev/"$disco"1
   mkfs.ext4 /dev/"$disco"2
-if [ "$domanda" = "y" ]
+elif [ "$domanda" = "y" ]
 then
-  cfdisk
+  # Open cfdisk to allow the user to create their own partitions
+  cfdisk /dev/"$disco"
 else
-  echo errore
+  echo "Error: invalid input"
 fi
 mount /dev/"$disco"2 /mnt #disco sistema
 mkdir -p /mnt/boot/efi #efi
