@@ -9,7 +9,8 @@ echo "scegliere il disco su cui installare il sistema"
 read disco
 
 echo start
-
+mkfs.vfat /dev/"$disco"1
+mkfs.ext4 /dev/"$disco"2
 mount /dev/"$disco"2 /mnt #disco sistema
 mkdir -p /mnt/boot/efi #efi
 mount /dev/"$disco"1 /mnt/boot/efi
