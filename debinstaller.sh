@@ -16,6 +16,8 @@ elif [ "$domanda" = "y" ]
 then
   # Open cfdisk to allow the user to create their own partitions
   cfdisk /dev/"$disco"
+  mkfs.vfat /dev/"$disco"1
+  mkfs.ext4 /dev/"$disco"2
 else
   echo "Error: invalid input"
 fi
