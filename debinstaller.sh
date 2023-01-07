@@ -29,7 +29,7 @@ git clone https://github.com/luk00casati/smalldebinstaller.git
 cp smalldebinstaller/fstab /etc/fstab
 cp smalldebinstaller/hostname /etc/hostname
 cp smalldebinstaller/hosts /etc/hosts
-rm -r smalldebianinstaller/
+rm -r smalldebinstaller/
 dpkg-reconfigure tzdata
 apt -y install grub-efi-amd64
 grub-install /dev/"$disco"
@@ -37,3 +37,4 @@ update-grub
 systemctl enable networking
 echo "done may you want make a change before restart es. add user change root password add software change configurations"
 END
+chroot /mnt /bin/bash
